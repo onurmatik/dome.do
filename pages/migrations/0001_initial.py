@@ -38,6 +38,10 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('title', models.CharField(max_length=100)),
                 ('subtitle', models.CharField(max_length=100)),
+                ('facebook', models.URLField(null=True, blank=True)),
+                ('twitter', models.URLField(null=True, blank=True)),
+                ('linkedin', models.URLField(null=True, blank=True)),
+                ('google', models.URLField(null=True, blank=True)),
                 ('logo', models.ForeignKey(related_name=b'+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
             ],
             options={
@@ -59,6 +63,24 @@ class Migration(migrations.Migration):
                 'abstract': False,
             },
             bases=(models.Model,),
+        ),
+        migrations.CreateModel(
+            name='ContactPage',
+            fields=[
+                ('page_ptr', models.OneToOneField(parent_link=True, auto_created=True, primary_key=True, serialize=False, to='wagtailcore.Page')),
+                ('intro', wagtail.wagtailcore.fields.RichTextField()),
+                ('company_name', models.CharField(max_length=100)),
+                ('company_title', models.CharField(max_length=100, null=True, blank=True)),
+                ('company_email', models.EmailField(max_length=75, null=True, blank=True)),
+                ('company_address', wagtail.wagtailcore.fields.RichTextField(max_length=100, null=True, blank=True)),
+                ('company_phone', models.CharField(max_length=100, null=True, blank=True)),
+                ('lat_lng', models.CharField(max_length=100, null=True, blank=True)),
+                ('logo', models.ForeignKey(related_name=b'+', on_delete=django.db.models.deletion.SET_NULL, blank=True, to='wagtailimages.Image', null=True)),
+            ],
+            options={
+                'abstract': False,
+            },
+            bases=('wagtailcore.page',),
         ),
         migrations.CreateModel(
             name='HomePage',
