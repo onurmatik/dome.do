@@ -143,4 +143,14 @@ LOGIN_REDIRECT_URL = 'wagtailadmin_home'
 WAGTAIL_SITE_NAME = 'dome.do'
 
 # Override the search results template for wagtailsearch
-WAGTAILSEARCH_RESULTS_TEMPLATE = 'demo/search_results.html'
+WAGTAILSEARCH_RESULTS_TEMPLATE = 'pages/search_results.html'
+
+try:
+    f = open('/home/ubuntu/dome.do/aws')
+except:
+    # local
+    pass
+else:
+    # aws
+    f.close()
+    from settings_aws import *
