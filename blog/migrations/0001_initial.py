@@ -12,10 +12,10 @@ import modelcluster.tags
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('wagtailimages', '0002_initial_data'),
-        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('wagtailcore', '0002_initial_data'),
-        ('taggit', '0002_auto_20140914_1805'),
+#        ('wagtailimages', '0002_initial_data'),
+#        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+#        ('wagtailcore', '0002_initial_data'),
+#        ('taggit', '0002_auto_20140914_1805'),
     ]
 
     operations = [
