@@ -146,7 +146,7 @@ WAGTAIL_SITE_NAME = 'dome.do'
 WAGTAILSEARCH_RESULTS_TEMPLATE = 'pages/search_results.html'
 
 try:
-    f = open('/home/ubuntu/dome.do/aws')
+    f = open('/etc/AWS_SECRET_ACCESS_KEY')
 except:
     # local
     pass
