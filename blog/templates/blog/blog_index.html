@@ -1,0 +1,86 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+
+          <section class="hgroup">
+               <h1>{{ self.title }}</h1>
+               <h2>
+                   {{ self.intro|richtext }}
+               </h2>
+               <ul class="breadcrumb pull-right">
+                    <li><a href="/">Home</a> </li>
+                    <li class="active">Blog</li>
+               </ul>
+          </section>
+
+          <section>
+               <div class="row">
+                    <div id="leftcol" class="col-sm-8 col-md-8">
+                    {% for post in posts %}
+                         <article class="post">
+                              <div class="post_header">
+                                   <h3 class="post_title">
+                                       <a href="{{ post.url }}">
+                                           {{ post.title }}
+                                       </a>
+                                   </h3>
+                                   <div class="post_sub">
+                                       <i class="fa-time"></i> {{ post.date }}
+                                   </div>
+                              </div>
+                              <div class="post_content">
+                                   <figure>
+                                       <a href="{{ post.url }}">
+                                           {% image post.primary_image width-750 %}
+                                       </a>
+                                   </figure>
+                                   <p>
+                                   {% if post.teaser %}
+                                       {{ post.teaser }}
+                                   {% else %}
+                                       {{ post.body|richtext|truncatewords_html:50 }}
+                                   {% endif %}
+                                   </p>
+                                   <a href="{{ post.url }}" class="btn btn-primary">
+                                       Read More
+                                   </a>
+                              </div>
+                         </article>
+                    {% endfor %}
+                    </div>
+
+                    <div id="sidebar" class="col-sm-4 col-md-4">
+
+                         <aside class="widget">
+                              <h4>Categories</h4>
+                              <ul class="nav nav-pills nav-stacked">
+                               <li {% if not selected_category %}class="active"{% endif %}>
+                                   <a href="/blog/">All categories</a>
+                               </li>
+                              {% for cat in categories %}
+                                   <li {% if selected_category == cat.0|slugify %}class="active"{% endif %}>
+                                       <a href="?cat={{ cat.0 }}">{{ cat.1 }}</a>
+                                   </li>
+                              {% endfor %}
+                              </ul>
+                         </aside>
+
+                         <aside class="widget">
+                              <h4>Tags</h4>
+                              <div id="tags" class="clearfix">
+                              {% for tag in tags %}
+                                  <a class="label {% if selected_tag == tag %}label-success{% else %}label-warning{% endif %}"
+                                      href="/blog/?tag={{ tag }}">
+                                      {{ tag }}
+                                  </a>
+                              {% endfor %}
+                              </div>
+                         </aside>
+
+                    </div>
+               </div>
+          </section>
+
+{% endblock %}

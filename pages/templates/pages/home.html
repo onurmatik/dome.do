@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block carousel %}
+
+<section id="slider_wrapper" class="slider_wrapper full_page_photo">
+    <div id="main_flexslider" class="flexslider">
+        <ul class="slides">
+            {% for item in self.carousel_items.all %}
+            {% image item.image height-480 as img %}
+            <li class="item" style="background-image: url({{ img.url }})">
+                <div class="container">
+                    <div class="carousel-caption">
+                    <a href="{{ item.link.url }}">
+                        <h1>
+                            {{ item.title|richtext }}
+                        </h1>
+                        <br>
+                        <div class="lead skincolored">
+                            {{ item.caption|richtext }}
+                        </div>
+                        {% if item.badge %}
+                        <span class="round_badge">
+                            <strong>{{ item.badge }}</strong>
+                        </span>
+                        {% endif %}
+                    </a>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+          </ul>
+     </div>
+</section>
+
+{% endblock %}
+
+
+{% block content %}
+
+        <section class="call_to_action">
+        {% if self.about %}
+            {{ self.about|richtext }}
+        {% endif %}
+        </section>
+
+        <section class="features_teasers_wrapper">
+        {% for highlight in self.homepage_highlights.all %}
+            <div class="row">
+                <div class="feature_teaser col-sm-4 col-md-4"> {% image highlight.image width-200 %}
+                    <h3>{{ highlight.title }}</h3>
+                    <p>
+                        {{ highlight.description|richtext }}
+                    </p>
+                </div>
+            </div>
+        {% endfor %}
+        </section>
+
+        <section class="portfolio_teasers_wrapper">
+
+            <h2 class="section_header fancy centered">
+                Recent Work and Projects
+                <small>we take pride in our work</small>
+            </h2>
+
+            <div class="portfolio_strict row">
+            {% for project in projects %}
+                {% image project.primary_image max-360x640 as img %}
+                <div class="col-sm-4 col-md-4">
+                    <div class="portfolio_item wow animated flipInX">
+                        <a href="{{ project.url }}" data-path-hover="M 180,190 0,158 0,0 180,0 z">
+                            <figure style="background-image:url({{ img.url }})">
+                                <svg viewBox="0 0 180 320" preserveAspectRatio="none">
+                                    <path d="M 180,0 0,0 0,0 180,0 z"/>
+                                </svg>
+                                <figcaption>
+                                    <p>
+                                        {{ project.description }}
+                                    </p>
+                                    <div class="view_button">
+                                        View
+                                    </div>
+                                </figcaption>
+                            </figure>
+                        </a>
+                        <div class="portfolio_description">
+                            <h3>
+                                <a href="{{ project.url }}">{{ project.title }}</a>
+                            </h3>
+                            <p>{{ project.tags.all|join:", " }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            </div>
+
+        </section>
+
+{% endblock %}

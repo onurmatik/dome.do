@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+
+          <section class="hgroup">
+               <h1>{{ self.title }}</h1>
+               <h2>
+                   {{ self.intro|richtext }}
+               </h2>
+               <ul class="breadcrumb pull-right">
+                    <li><a href="/">Home</a> </li>
+                    <li class="active">Projects</li>
+               </ul>
+          </section>
+
+          <section>
+               <ul class="portfolio_filters">
+                    <li><a href="#" data-filter="*" class="active">show all</a></li>
+                    {% for tag in tags %}
+                        <li>
+                            <a href="#" data-filter=".{{ tag }}">{{ tag }}</a>
+                        </li>
+                    {% endfor %}
+               </ul>
+          </section>
+
+          <section class="portfolio_strict">
+               <div class="row isotope_portfolio_container isotope" style="position: relative; overflow: hidden; height: 1376px;">
+               {% for project in projects %}
+                    {% image project.primary_image fill-360x230 as img %}
+                    <div class="{{ project.tags.all|join:" " }} col-xs-12 col-sm-6 col-md-4 col-lg-4 isotope-item" style="position: absolute; left: 0px; top: 0px; transform: translate3d(0px, 0px, 0px);">
+                         <div class="portfolio_item">
+                              <a href="{{ project.url }}" data-path-hover="M 180,190 0,158 0,0 180,0 z">
+                                  <figure style="background-image:url({{ img.url }})">
+                                       <svg viewBox="0 0 180 320" preserveAspectRatio="none">
+                                            <path d="M 180,0 0,0 0,0 180,0 z"></path>
+                                       </svg>
+                                       <figcaption>
+                                            <p>
+                                                {{ project.description }}
+                                            </p>
+                                            <div class="view_button">View</div>
+                                       </figcaption>
+                                  </figure>
+                              </a>
+                              <div class="portfolio_description">
+                                   <h3>
+                                       <a href="portfolio_item.html">
+                                           {{ project.title }}
+                                       </a>
+                                   </h3>
+                                   <p>
+                                       {{ project.tags.all|join:", " }}
+                                   </p>
+                              </div>
+                         </div>
+                    </div>
+               {% endfor %}
+               </div>
+          </section>
+
+{% endblock %}

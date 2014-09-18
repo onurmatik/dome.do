@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+
+          <section class="hgroup">
+               <h1>
+                   {{ self.title }}
+               </h1>
+               <h2>
+                   {{ self.description }}
+               </h2>
+               <ul class="breadcrumb pull-right">
+                    <li><a href="/">Home</a> </li>
+                    <li><a href="/projects/">Projects</a></li>
+                    <li class="active">{{ self.title }}</li>
+               </ul>
+          </section>
+
+          <section>
+               <div class="row">
+
+                    <div class="col-sm-8 col-md-8">
+                         <section class="portfolio_slider_wrapper">
+                              <div class="flexslider" id="portfolio_slider">
+                                   <ul class="slides">
+                                       {% for project_image in self.project_images.all %}
+                                       {% image project_image.image height-850 as img %}
+                                        <li class="item" data-thumb="{{ img.url }}" style="background-image: url({{ img.url }})">
+                                             <div class="container">
+                                                 <a href="{{ img.url }}" rel="prettyPhoto[gal]"></a>
+                                                 {% if project_image.caption %}
+                                                  <div class="carousel-caption">
+                                                       <p class="lead">
+                                                           {{ project_image.caption }}
+                                                       </p>
+                                                  </div>
+                                                 {% endif %}
+                                             </div>
+                                        </li>
+                                       {% endfor %}
+                                   </ul>
+                              </div>
+                              <div id="carousel" class="flexslider">
+                                   <ul class="slides">
+                                       {% for project_image in self.project_images.all %}
+                                        <li>
+                                            {% image project_image.image fill-210x160 %}
+                                        </li>
+                                       {% endfor %}
+                                   </ul>
+                              </div>
+                         </section>
+                    </div>
+
+                    <div class="col-sm-4 col-md-4">
+                         <article class="portfolio_details">
+                              <h2 class="section_header">
+                                  About the project
+                              </h2>
+                              <p>
+                                  {{ self.about|richtext }}
+                              </p>
+                              <br>
+                              <div>
+                              {% for item in self.project_highlights.all %}
+                                  <p>
+                                    {{ item.highlight|richtext }}
+                                  </p>
+                              {% endfor %}
+                              </div>
+                              <br>
+                              <br>
+                         </article>
+                    </div>
+               </div>
+          </section>
+
+{% endblock %}

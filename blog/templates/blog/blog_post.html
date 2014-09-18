@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block content %}
+
+          <section class="hgroup">
+               <h1>{{ self.title }}</h1>
+               <h2>
+                   {{ self.teaser }}
+               </h2>
+               <ul class="breadcrumb pull-right">
+                    <li><a href="/">Home</a> </li>
+                    <li><a href="/blog/">Blog</a> </li>
+                    <li class="active">{{ self.title }}</li>
+               </ul>
+          </section>
+
+          <figure>
+               {% image self.primary_image fill-1200x400 %}
+          </figure>
+
+          <section class="article-text">
+               <div class="row">
+                    <div class="col-sm-9 col-md-9">
+                        {{ self.body|richtext }}
+                    </div>
+
+                    <div class="well col-sm-3 col-md-3">
+                          {% if self.author %}
+                              <p><strong>Author:</strong> {{ self.author.get_full_name }}</p>
+                          {% endif %}
+                          <p><strong>Date:</strong> {{ self.date }}</p>
+                          <p><strong>Category:</strong> {{ self.get_category_display }}</p>
+                          <p><strong>Tags:</strong> {{ self.tags.all|join:", " }}</p>
+                          {% for item in self.project_highlights.all %}
+                              <p>
+                                {{ item.highlight|richtext }}
+                              </p>
+                          {% endfor %}
+                   </div>
+               </div>
+          </section>
+
+          <h2 class="section_header">
+              Keep on reading <small>related posts</small>
+          </h2>
+
+          {% for post in self.posts %}
+          {% image post.primary_image fill-400x300 as img %}
+              <div class="service_teaser">
+                   <div class="row">
+                        <div class="service_photo col-sm-4 col-md-4">
+                             <a href="{{ post.url }}">
+                                  <figure style="background-image:url({{ img.url }})"></figure>
+                             </a>
+                        </div>
+                        <div class="service_details col-sm-8 col-md-8">
+                             <h2 class="section_header skincolored">
+                                 <a href="{{ post.url }}">
+                                     {{ post.title }} <small>{{ post.tags.all|join:", " }}</small>
+                                 </a>
+                             </h2>
+                             <p>
+                                 {{ post.body|richtext|truncatewords_html:50 }}
+                             </p>
+                        </div>
+                   </div>
+              </div>
+          {% endfor %}
+
+{% endblock %}

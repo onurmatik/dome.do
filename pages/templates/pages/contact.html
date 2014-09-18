@@ -1,0 +1,136 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags wagtailimages_tags %}
+
+
+{% block body_class %}collapsing_header{% endblock %}
+
+
+{% block collapse %}
+
+    <div class="full_page_photo">
+        <div id="map"></div>
+
+    </div>
+
+{% endblock %}
+
+
+{% block content %}
+
+          <section class="hgroup">
+               <h1>{{ self.title }}</h1>
+               <h2>
+                   {{ self.intro }}
+               </h2>
+               <ul class="breadcrumb pull-right">
+                    <li><a href="/">Home</a> </li>
+                    <li class="active">Contact us</li>
+               </ul>
+          </section>
+
+          <section>
+               <div class="row">
+                    <div class="office_address col-sm-4 col-md-4">
+                         <div class="team_member">
+                            {% image self.logo fill-90x90 as img %}
+                         	<img src="{{ img.url }}" width="90" height="90" alt="logo">
+                         	<h5>
+                                {{ self.company_name }}
+                            </h5>
+                            <small>
+                                {{ self.company_title }}
+                            </small>
+                            <br><br>
+                            <div class="team_social">
+                                {% if brand.facebook %}<a href="{{ brand.facebook }}"><i class="fa fa-facebook"></i></a>{% endif %}
+                                {% if brand.twitter %}<a href="{{ brand.twitter }}"><i class="fa fa-twitter"></i></a>{% endif %}
+                                {% if brand.linkedin %}<a href="{{ brand.linkedin }}"><i class="fa fa-linkedin"></i></a>{% endif %}
+                                {% if brand.google %}<a href="{{ brand.google }}"><i class="fa fa-google-plus"></i></a>{% endif %}
+                            </div>
+
+                            <address>
+                                {{ self.company_address }}
+                                <br><br>
+                                <abbr title="Phone">P:</abbr> {{ self.company_phone }}
+                                <br>
+                                <abbr title="Phone">E:</abbr> <a href="mailto:{{ self.company_email }}">{{ self.company_email }}</a>
+                            </address>
+                         </div>
+                    </div>
+                    <div class="contact_form col-sm-8 col-md-8">
+                         <form name="contact_form" id="contact_form" method="post">
+                              <div class="row">
+                                   <div class="col-sm-6 col-md-6">
+                                        <label>Name</label>
+                                        <input name="name" id="name" class="form-control" type="text" value="">
+                                   </div>
+                                   <div class="col-sm-6 col-md-6">
+                                        <label>E-mail</label>
+                                        <input name="email" id="email" class="form-control" type="text" value="">
+                                   </div>
+                              </div>
+                              <div class="row">
+                                   <div class="col-sm-12 col-md-12">
+                                        <label>Subject</label>
+                                        <input name="subject" id="subject" class="form-control" type="text">
+                                   </div>
+                              </div>
+                              <div class="row">
+                                   <div class="col-sm-12 col-md-12">
+                                        <label>Message</label>
+                                        <textarea name="message" id="message" rows="8" class="form-control"></textarea>
+                                   </div>
+                                   <div class="col-sm-12 col-md-12"><br>
+                                        <a id="submit_btn" class="btn btn-primary" name="submit">Submit Message</a> <span id="notice" class="alert alert-warning alert-dismissable hidden" style="margin-left:20px;"></span> </div>
+                              </div>
+                         </form>
+                    </div>
+               </div>
+          </section>
+
+{% endblock %}
+
+
+{% block map_js %}
+
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false"></script>
+    <script type="text/javascript">
+            // When the window has finished loading create our google map below
+            google.maps.event.addDomListener(window, 'load', init);
+
+            function init() {
+	      // The latitude and longitude to center the map (always required)
+	      // You can find it easily at http://universimmedia.pagesperso-orange.fr/geo/loc.htm
+	      var myLatlng = new google.maps.LatLng({{ self.lat_lng }});
+
+                // Basic options for a simple Google Map
+                // For more options see: https://developers.google.com/maps/documentation/javascript/reference#MapOptions
+                var mapOptions = {
+                    // How zoomed in you want the map to start at (always required)
+                    zoom: 12,
+		// Disable scrollwheel zooming on the map
+		scrollwheel: false,
+                    center: myLatlng,
+
+                    // How you would like to style the map.
+                    // This is where you would paste any style. For example paste a style found on Snazzy Maps.
+                     styles: [{'featureType':'water','stylers':[{'visibility':'on'},{'color':'#428BCA'}]},{'featureType':'landscape','stylers':[{'color':'#f2e5d4'}]},{'featureType':'road.highway','elementType':'geometry','stylers':[{'color':'#c5c6c6'}]},{'featureType':'road.arterial','elementType':'geometry','stylers':[{'color':'#e4d7c6'}]},{'featureType':'road.local','elementType':'geometry','stylers':[{'color':'#fbfaf7'}]},{'featureType':'poi.park','elementType':'geometry','stylers':[{'color':'#c5dac6'}]},{'featureType':'administrative','stylers':[{'visibility':'on'},{'lightness':33}]},{'featureType':'road'},{'featureType':'poi.park','elementType':'labels','stylers':[{'visibility':'on'},{'lightness':20}]},{},{'featureType':'road','stylers':[{'lightness':20}]}]
+                };
+
+                // Get the HTML DOM element that will contain your map
+                // We are using a div with id="map" seen up in the <body>
+                var mapElement = document.getElementById('map');
+
+                // Create the Google Map using out element and options defined above
+                var map = new google.maps.Map(mapElement, mapOptions);
+
+	      // Put a marker at the center of the map
+	      var marker = new google.maps.Marker({
+      		position: myLatlng,
+      		map: map,
+      		title: 'We are right here!'
+  		});
+            }
+    </script>
+
+{% endblock %}
