@@ -52,6 +52,11 @@ INSTALLED_APPS = (
     'wagtail.wagtailredirects',
     'wagtail.wagtailforms',
 
+    # aws
+    'django_ses',
+    'storages',
+    's3_folder_storage',
+
     'pages',
     'blog',
 )
