@@ -24,7 +24,10 @@ DEBUG = True
 
 TEMPLATE_DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    "dome.do",
+    "ec2-54-194-41-74.eu-west-1.compute.amazonaws.com",
+]
 
 
 # Application definition
