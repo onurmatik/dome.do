@@ -26,7 +26,8 @@ TEMPLATE_DEBUG = True
 
 ALLOWED_HOSTS = [
     "dome.do",
-    "ec2-54-194-41-74.eu-west-1.compute.amazonaws.com",
+    "54.77.243.98",
+    "ec2-54-194-53-106.eu-west-1.compute.amazonaws.com",
 ]
 
 
