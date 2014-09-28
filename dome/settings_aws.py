@@ -36,3 +36,5 @@ STATIC_URL = '//%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
+
+COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'

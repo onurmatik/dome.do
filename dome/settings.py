@@ -138,10 +138,13 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # django-compressor settings
-COMPRESS_ROOT = 'compress/'
+COMPRESS_ROOT = 'static/compress/'
 
 COMPRESS_PRECOMPILERS = (
-    ('text/x-scss', 'django_libsass.SassCompiler'),
+    ('text/less', 'lessc {infile} {outfile}'),
+    ('text/x-sass', 'sass {infile} {outfile}'),
+    ('text/x-scss', 'sass --scss {infile} {outfile}'),
+    ('text/stylus', 'stylus < {infile} > {outfile}'),
 )
 
 # auth settings
