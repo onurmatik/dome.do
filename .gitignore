@@ -1,0 +1,13 @@
+.*
+*.log
+*.pot
+*.pyc
+*.db
+django.po
+env/
+documents/
+compress/
+media/
+original_images/
+migrations/
+!.gitignore
