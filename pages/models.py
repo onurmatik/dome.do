@@ -325,7 +325,4 @@ ContactPage.content_panels = [
     FieldPanel('company_address'),
     FieldPanel('company_phone'),
     FieldPanel('lat_lng'),
-    FieldPanel('facebook'),
-    FieldPanel('twitter'),
-    FieldPanel('linkedin'),
 ]
