@@ -265,6 +265,9 @@ class Profile(models.Model):
         FieldPanel('name'),
         FieldPanel('title'),
         FieldPanel('about', classname='full'),
+        FieldPanel('facebook'),
+        FieldPanel('twitter'),
+        FieldPanel('linkedin'),
     ]
 
 
