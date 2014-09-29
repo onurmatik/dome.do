@@ -48,16 +48,16 @@
         </section>
 
         <section class="features_teasers_wrapper">
-        {% for highlight in self.homepage_highlights.all %}
             <div class="row">
-                <div class="feature_teaser col-sm-4 col-md-4"> {% image highlight.image width-200 %}
-                    <h3>{{ highlight.title }}</h3>
-                    <p>
-                        {{ highlight.description|richtext }}
-                    </p>
-                </div>
+            {% for highlight in self.homepage_highlights.all %}
+                    <div class="feature_teaser col-sm-4 col-md-4"> {% image highlight.image width-200 %}
+                        <h3>{{ highlight.title }}</h3>
+                        <p>
+                            {{ highlight.description|richtext }}
+                        </p>
+                    </div>
+            {% endfor %}
             </div>
-        {% endfor %}
         </section>
 
         <section class="portfolio_teasers_wrapper">
