@@ -138,7 +138,7 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 # django-compressor settings
-COMPRESS_ROOT = 'static/compress/'
+COMPRESS_ROOT = 'static/'
 
 COMPRESS_PRECOMPILERS = (
     ('text/less', 'lessc {infile} {outfile}'),

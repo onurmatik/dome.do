@@ -28,13 +28,17 @@ STATIC_S3_PATH = "static"
 MEDIA_ROOT = '/%s/' % DEFAULT_S3_PATH
 # MEDIA_ROOT = '/'
 #
-MEDIA_URL = '//%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
+MEDIA_URL = '%s.s3.amazonaws.com/media/' % AWS_STORAGE_BUCKET_NAME
 # MEDIA_URL = '//%s.s3.amazonaws.com/' % AWS_STORAGE_BUCKET_NAME
 #
 STATIC_ROOT = "/%s/" % STATIC_S3_PATH
-STATIC_URL = '//%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+COMPRESS_URL = 'http://%s.s3.amazonaws.com/static/' % AWS_STORAGE_BUCKET_NAME
+STATIC_URL = COMPRESS_URL
+
 ADMIN_MEDIA_PREFIX = STATIC_URL + 'admin/'
 
 THUMBNAIL_DEFAULT_STORAGE = DEFAULT_FILE_STORAGE
-
 COMPRESS_STORAGE = 's3_folder_storage.s3.StaticStorage'
+
+AWS_S3_SECURE_URLS = False
+AWS_S3_URL_PROTOCOL = 'http'
